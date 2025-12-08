@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Web Tools Hub — Typing Speed Test, Password Generator, CPS Test & More</title>
+    <meta name="description" content="Free online tools including typing speed test, password generator, CPS test, reaction time test, and more. Improve your skills with our easy-to-use web tools.">
+    <meta name="keywords" content="typing speed test, typing test online, WPM test, password generator, strong password, CPS test, click speed test, reaction time test, memory game, free online tools">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hide { display: none !important; }
+        .show { display: block !important; }
+        
+        /* CPS Test specific styles */
+        .time-btn.active {
+            background: linear-gradient(to right, #3b82f6, #06b6d4);
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+        }
+        
+        #cps-click-area:active {
+            transform: scale(0.98);
+        }
+        
+        /* Password strength colors */
+        .strength-weak { background-color: #ef4444 !important; }
+        .strength-medium { background-color: #f59e0b !important; }
+        .strength-strong { background-color: #10b981 !important; }
+        .strength-very-strong { background-color: #3b82f6 !important; }
+        
+        /* Typing text highlighting */
+        .correct-char { color: #10b981; }
+        .incorrect-char { color: #ef4444; text-decoration: underline; }
+        .current-char { background-color: rgb(255, 253, 253); border-radius: 2px; }
+        
+        /* Memory game cards */
+        .memory-card {
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        .memory-card:hover {
+            transform: scale(1.05);
+        }
+        .memory-card.matched {
+            cursor: default !important;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
+    
+    <!-- Header -->
+    <header class="bg-gray-900/95 backdrop-blur-md shadow-lg border-b border-purple-500/20 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex justify-between items-center">
+                <button onclick="showPage('home')" class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent hover:from-purple-300 hover:to-pink-300 transition-all duration-200">
+                    ⚡ Free Web Tools Hub
+                </button>
+                <button onclick="toggleDarkMode()" class="p-2 rounded-lg bg-purple-500/10 hover:bg-purple-500/20 transition-colors duration-200" aria-label="Toggle theme">
+                    <svg id="theme-icon" class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <main id="home-page" class="page max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Hero Section -->
+        <div class="text-center mb-16">
+            <h1 class="text-5xl sm:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 bg-clip-text text-transparent">
+                Free Online Tools That Actually Help
+            </h1>
+            <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                Type faster, create secure passwords, test your reflexes, and master JavaScript with our free, easy-to-use web tools.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <button onclick="showPage('typing-test')" class="px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl font-semibold shadow-lg shadow-purple-500/50 hover:shadow-xl hover:shadow-purple-500/70 transform hover:-translate-y-0.5 transition-all duration-200">
+                    Try Typing Test
+                </button>
+                <button onclick="showPage('cps-test')" class="px-8 py-4 bg-gray-800 text-white border-2 border-purple-500 rounded-xl font-semibold shadow-lg hover:bg-gray-700 transform hover:-translate-y-0.5 transition-all duration-200">
+                    Test Your CPS
+                </button>
+            </div>
+        </div>
+
+        <!-- Tools Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <div onclick="showPage('typing-test')" class="bg-gray-800/50 backdrop-blur-sm border border-purple-500/20 rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-purple-500/20 transform hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer">
+                <div class="h-2 bg-gradient-to-r from-purple-500 to-indigo-500"></div>
+                <div class="p-8">
+                    <div class="inline-flex p-3 rounded-xl bg-gradient-to-r from-purple-500 to-indigo-500 text-white mb-4 shadow-lg">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">Typing Speed Test</h3>
+                    <p class="text-gray-400 mb-4">Test your typing speed with adjustable time limits. Track WPM, accuracy, and improve your skills.</p>
+                    <p class="text-sm text-purple-400 font-semibold">15K+ tests taken</p>
+                </div>
+            </div>
+
+            <div onclick="showPage('password-generator')" class="bg-gray-800/50 backdrop-blur-sm border border-purple-500/20 rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-purple-500/20 transform hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer">
+                <div class="h-2 bg-gradient-to-r from-indigo-500 to-blue-500"></div>
+                <div class="p-8">
+                    <div class="inline-flex p-3 rounded-xl bg-gradient-to-r from-indigo-500 to-blue-500 text-white mb-4 shadow-lg">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">Password Generator</h3>
+                    <p class="text-gray-400 mb-4">Generate strong, secure passwords with customizable options. Check password strength in real-time.</p>
+                    <p class="text-sm text-purple-400 font-semibold">75K+ passwords generated</p>
+                </div>
+            </div>
+
+            <div onclick="showPage('cps-test')" class="bg-gray-800/50 backdrop-blur-sm border border-purple-500/20 rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-purple-500/20 transform hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer">
+                <div class="h-2 bg-gradient-to-r from-blue-500 to-cyan-500"></div>
+                <div class="p-8">
+                    <div class="inline-flex p-3 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 text-white mb-4 shadow-lg">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">CPS Test</h3>
+                    <p class="text-gray-400 mb-4">Test your clicking speed (clicks per second). Challenge yourself with different time limits.</p>
+                    <p class="text-sm text-purple-400 font-semibold">25K+ clicks recorded</p>
+                </div>
+            </div>
+
+            <div onclick="showPage('reaction-test')" class="bg-gray-800/50 backdrop-blur-sm border border-purple-500/20 rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-purple-500/20 transform hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer">
+                <div class="h-2 bg-gradient-to-r from-cyan-500 to-teal-500"></div>
+                <div class="p-8">
+                    <div class="inline-flex p-3 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 text-white mb-4 shadow-lg">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">Reaction Time Test</h3>
+                    <p class="text-gray-400 mb-4">Measure your reflexes and reaction speed. Click when the screen turns green!</p>
+                    <p class="text-sm text-purple-400 font-semibold">10K+ reactions tested</p>
+                </div>
+            </div>
+
+            <div onclick="showPage('memory-test')" class="bg-gray-800/50 backdrop-blur-sm border border-purple-500/20 rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-purple-500/20 transform hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer">
+                <div class="h-2 bg-gradient-to-r from-teal-500 to-emerald-500"></div>
+                <div class="p-8">
+                    <div class="inline-flex p-3 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 text-white mb-4 shadow-lg">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">Memory Puzzle</h3>
+                    <p class="text-gray-400 mb-4">Challenge your memory with our matching game. Find all pairs as fast as you can!</p>
+                    <p class="text-sm text-purple-400 font-semibold">8K+ games played</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-800/50 backdrop-blur-sm border border-purple-500/20 rounded-2xl shadow-xl overflow-hidden opacity-60">
+                <div class="h-2 bg-gradient-to-r from-pink-500 to-rose-500"></div>
+                <div class="p-8">
+                    <div class="inline-flex p-3 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 text-white mb-4 shadow-lg">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">More Tools Coming</h3>
+                    <p class="text-gray-400 mb-4">Text Tools, Unit Converters, and Roman Urdu JS tutorials.</p>
+                    <p class="text-sm text-purple-400 font-semibold">Stay tuned!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-3xl p-12 text-white text-center shadow-2xl shadow-purple-500/30 mb-16">
+            <h2 class="text-3xl font-bold mb-8">Trusted by Users Worldwide</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="text-4xl font-bold mb-2">150K+</div>
+                    <div class="text-purple-100">Total Tool Uses</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">4.9★</div>
+                    <div class="text-purple-100">User Rating</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">100%</div>
+                    <div class="text-purple-100">Free Forever</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEO Content -->
+        <div class="bg-gray-800/30 backdrop-blur-sm border border-purple-500/20 rounded-3xl p-8">
+            <h2 class="text-3xl font-bold text-white mb-6">Why Choose Our Free Web Tools?</h2>
+            <div class="grid md:grid-cols-2 gap-8 text-gray-300">
+                <div>
+                    <h3 class="text-xl font-semibold text-purple-400 mb-3">🚀 Fast & Accurate</h3>
+                    <p>Our typing speed test provides precise WPM and accuracy measurements. Test your skills with adjustable time limits from 10 to 60 seconds.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-purple-400 mb-3">🔒 Secure Passwords</h3>
+                    <p>Generate military-grade passwords with our password generator. Customize length, character types, and check strength in real-time.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-purple-400 mb-3">🖱️ Test Your Skills</h3>
+                    <p>Challenge yourself with our CPS test and reaction time test. Compete with others and track your improvement over time.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-purple-400 mb-3">🧠 Brain Training</h3>
+                    <p>Improve your cognitive abilities with our memory puzzle game. Fun and educational for all ages.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Typing Test Page -->
+    <main id="typing-test-page" class="page hide max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <button onclick="showPage('home')" class="mb-6 text-purple-400 hover:text-purple-300 font-semibold flex items-center gap-2">
+            ← Back to Home
+        </button>
+
+        <div class="bg-white-800/50 backdrop-blur-sm border border-purple-500/20 rounded-3xl shadow-2xl p-8 mb-8">
+            <h1 class="text-4xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Typing Speed Test Online
+            </h1>
+            <p class="text-gray-400 mb-6">Test your typing speed and accuracy with adjustable time limits</p>
+
+            <!-- Settings -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div>
+                    <label class="block text-sm font-semibold mb-2 text-gray-300">Time (seconds)</label>
+                    <select id="typing-time" class="w-full px-4 py-2 rounded-lg border-2 border-purple-500/30 bg-gray-900 text-white focus:border-purple-500 focus:outline-none">
+                        <option value="10">10s</option>
+                        <option value="15">15s</option>
+                        <option value="30" selected>30s</option>
+                        <option value="60">60s</option>
+
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-2 text-gray-300">Difficulty</label>
+                    <select id="typing-difficulty" class="w-full px-4 py-2 rounded-lg border-2 border-purple-500/30 bg-gray-900 text-white focus:border-purple-500 focus:outline-none">
+                        <option value="easy">Easy</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
+                <div class="col-span-2">
+                    <label class="block text-sm font-semibold mb-2 text-gray-300">Timer</label>
+                    <div id="typing-timer" class="text-4xl font-bold text-purple-400">30s</div>
+                </div>
+            </div>
+
+            <!-- Text Display -->
+            <div id="typing-text" class="bg-white rounded-2xl p-6 mb-6 min-h-[200px] text-2xl leading-relaxed font-mono border border-purple-500/20"></div>
+
+            <!-- Input -->
+            <input id="typing-input" type="text" class="w-full px-4 py-3 rounded-lg border-2 border-purple-500 bg-gray-900 text-white text-lg focus:outline-none focus:ring-4 focus:ring-purple-500/50 mb-6" placeholder="Click Start to begin" disabled>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div class="bg-gradient-to-br from-purple-900/50 to-indigo-900/50 border border-purple-500/30 rounded-xl p-4 text-center">
+                    <div class="text-sm text-gray-400 mb-1">WPM</div>
+                    <div id="typing-wpm" class="text-3xl font-bold text-purple-400">0</div>
+                </div>
+                <div class="bg-gradient-to-br from-indigo-900/50 to-blue-900/50 border border-indigo-500/30 rounded-xl p-4 text-center">
+                    <div class="text-sm text-gray-400 mb-1">Accuracy</div>
+                    <div id="typing-accuracy" class="text-3xl font-bold text-indigo-400">100%</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-900/50 to-cyan-900/50 border border-blue-500/30 rounded-xl p-4 text-center">
+                    <div class="text-sm text-gray-400 mb-1">CPS</div>
+                    <div id="typing-cps" class="text-3xl font-bold text-blue-400">0.0</div>
+                </div>
+                <div class="bg-gradient-to-br from-cyan-900/50 to-teal-900/50 border border-cyan-500/30 rounded-xl p-4 text-center">
+                    <div class="text-sm text-gray-400 mb-1">Errors</div>
+                    <div id="typing-errors" class="text-3xl font-bold text-cyan-400">0</div>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex gap-4">
+                <button id="typing-start-btn" onclick="startTypingTest()" class="flex-1 px-6 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl font-semibold shadow-lg shadow-purple-500/50 hover:shadow-xl hover:shadow-purple-500/70 transform hover:-translate-y-0.5 transition-all duration-200">
+                    Start Test
+                </button>
+                <button id="typing-reset-btn" onclick="resetTypingTest()" class="hide flex-1 px-6 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl font-semibold shadow-lg shadow-purple-500/50 hover:shadow-xl hover:shadow-purple-500/70 transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                    </svg>
+                    Reset
+                </button>
+            </div>
+
+            <!-- Results -->
+            <div id="typing-results" class="hide mt-8 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-8 text-white shadow-2xl">
+                <h2 class="text-3xl font-bold mb-4">Test Complete! 🎉</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div>
+                        <div class="text-purple-200 text-sm">Words Per Minute</div>
+                        <div id="result-wpm" class="text-4xl font-bold">0</div>
+                    </div>
+                    <div>
+                        <div class="text-purple-200 text-sm">Accuracy</div>
+                        <div id="result-accuracy" class="text-4xl font-bold">100%</div>
+                    </div>
+                    <div>
+                        <div class="text-purple-200 text-sm">Chars/Second</div>
+                        <div id="result-cps" class="text-4xl font-bold">0.0</div>
+                    </div>
+                    <div>
+                        <div class="text-purple-200 text-sm">Total Chars</div>
+                        <div id="result-chars" class="text-4xl font-bold">0</div>
+                    </div>
+                </div>
+                <p id="result-message" class="text-purple-100"></p>
+            </div>
+        </div>
+
+        <!-- SEO Content -->
+        <div class="bg-gray-800/30 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-6 text-gray-300">
+            <h2 class="text-2xl font-bold text-white mb-4">About This Typing Speed Test</h2>
+            <p class="mb-4">
+                Our free online typing speed test helps you measure your typing skills accurately. Test your WPM (words per minute), accuracy, and CPS (characters per second) with adjustable time limits ranging from 10 to 60 seconds.
+            </p>
+            <p>
+                Perfect for students, professionals, and anyone looking to improve their typing speed. Track your progress and compete with friends to see who types faster!
+            </p>
+        </div>
+    </main>
+
+    <!-- Password Generator Page -->
+    <main id="password-page" class="page hide max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <button onclick="showPage('home')" class="mb-6 text-purple-400 hover:text-purple-300 font-semibold flex items-center gap-2">
+            ← Back to Home
+        </button>
+
+        <div class="bg-gray-800/50 backdrop-blur-sm border border-purple-500/20 rounded-3xl shadow-2xl p-8">
+            <h1 class="text-4xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Strong Password Generator
+            </h1>
+            <p class="text-gray-400 mb-8">Create secure passwords instantly with our free password generator tool</p>
+
+            <!-- Password Display -->
+            <div class="relative mb-8">
+                <input id="password-display" type="text" readonly class="w-full px-6 py-4 pr-14 rounded-xl border-2 border-purple-500/30 bg-gray-900 text-white text-lg font-mono focus:outline-none focus:ring-4 focus:ring-purple-500/50">
+                <button onclick="copyPassword()" class="absolute right-2 top-1/2 -translate-y-1/2 p-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg hover:shadow-lg shadow-purple-500/50 transition-all duration-200">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Strength Meter -->
+            <div class="mb-8">
+                <div class="flex justify-between mb-2">
+                    <span class="text-sm font-semibold text-gray-300">Password Strength</span>
+                    <span id="strength-text" class="text-sm font-semibold text-gray-300">Very Strong</span>
+                </div>
+                <div class="h-3 bg-gray-700 rounded-full overflow-hidden">
+                    <div id="strength-bar" class="h-full bg-emerald-500 transition-all duration-500" style="width: 100%"></div>
+                </div>
+                <p id="strength-tip" class="text-sm text-gray-400 mt-2">✅ Excellent! This password is highly secure.</p>
+            </div>
+
+            <!-- Length Slider -->
+            <div class="mb-8">
+                <div class="flex justify-between mb-2">
+                    <label class="text-sm font-semibold text-gray-300">Password Length</label>
+                    <span id="password-length-display" class="text-sm font-bold text-purple-400">16</span>
+                </div>
+                <input id="password-length" type="range" min="4" max="64" value="16" oninput="generatePassword()" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-purple-600">
+            </div>
+
+            <!-- Options -->
+            <div class="grid grid-cols-2 gap-4 mb-8">
+                <label class="flex items-center gap-3 cursor-pointer p-4 rounded-xl bg-gray-900 hover:bg-gray-800 border border-purple-500/20 transition-colors duration-200">
+                    <input type="checkbox" id="opt-uppercase" checked onchange="generatePassword()" class="w-5 h-5 text-purple-600 rounded focus:ring-purple-500 focus:ring-2 cursor-pointer">
+                    <span class="text-gray-300 font-medium">Uppercase</span>
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer p-4 rounded-xl bg-gray-900 hover:bg-gray-800 border border-purple-500/20 transition-colors duration-200">
+                    <input type="checkbox" id="opt-lowercase" checked onchange="generatePassword()" class="w-5 h-5 text-purple-600 rounded focus:ring-purple-500 focus:ring-2 cursor-pointer">
+                    <span class="text-gray-300 font-medium">Lowercase</span>
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer p-4 rounded-xl bg-gray-900 hover:bg-gray-800 border border-purple-500/20 transition-colors duration-200">
+                    <input type="checkbox" id="opt-numbers" checked onchange="generatePassword()" class="w-5 h-5 text-purple-600 rounded focus:ring-purple-500 focus:ring-2 cursor-pointer">
+                    <span class="text-gray-300 font-medium">Numbers</span>
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer p-4 rounded-xl bg-gray-900 hover:bg-gray-800 border border-purple-500/20 transition-colors duration-200">
+                    <input type="checkbox" id="opt-symbols" checked onchange="generatePassword()" class="w-5 h-5 text-purple-600 rounded focus:ring-purple-500 focus:ring-2 cursor-pointer">
+                    <span class="text-gray-300 font-medium">Symbols</span>
+                </label>
+            </div>
+
+            <!-- Generate Button -->
+            <button onclick="generatePassword()" class="w-full px-6 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl font-semibold shadow-lg shadow-purple-500/50 hover:shadow-xl hover:shadow-purple-500/70 transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                </svg>
+                Generate New Password
+            </button>
+
+            <!-- Tips -->
+            <div class="mt-8 p-6 bg-purple-900/20 border border-purple-500/30 rounded-2xl">
+                <h3 class="font-bold text-lg mb-3 text-white">🔒 Password Security Tips</h3>
+                <ul class="space-y-2 text-sm text-gray-300">
+                    <li>✓ Use unique passwords for each account</li>
+                    <li>✓ Never share passwords via email or messaging</li>
+                    <li>✓ Enable two-factor authentication when available</li>
+                    <li>✓ Consider using a password manager</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SEO Content -->
+        <div class="mt-8 bg-gray-800/30 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-6 text-gray-300">
+            <h2 class="text-2xl font-bold text-white mb-4">Best Password Generator 2025</h2>
+            <p class="mb-4">
+                Generate strong, secure passwords with our free password generator tool. Create passwords with customizable length (4-64 characters), uppercase letters, lowercase letters, numbers, and special symbols.
+            </p>
+            <p>
+                Our password strength checker provides real-time feedback to ensure your passwords meet security standards. Perfect for creating secure passwords for email, social media, banking, and other online accounts.
+            </p>
+        </div>
+    </main>
+
+    <!-- CPS Test Page -->
+    <main id="cps-test-page" class="page hide max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <button onclick="showPage('home')" class="mb-6 text-purple-400 hover:text-purple-300 font-semibold flex items-center gap-2">
+            ← Back to Home
+        </button>
+
+        <div class="bg-gray-800/50 backdrop-blur-sm border border-purple-500/20 rounded-3xl shadow-2xl p-8">
+            <h1 class="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                CPS Test - Click Speed Test
+            </h1>
+            <p class="text-gray-400 mb-8">Test your clicking speed (clicks per second)</p>
+
+            <!-- Time Selector -->
+            <div class="mb-8">
+                <label class="block text-sm font-semibold mb-3 text-gray-300">Select Time</label>
+                <div class="flex flex-wrap gap-3">
+                    
+                    <button onclick="setCpsTime(5)" class="time-btn px-6 py-3 bg-gray-900 text-gray-300 rounded-xl font-semibold hover:bg-gray-800 transition-all duration-200">5 Seconds</button>
+                    <button onclick="setCpsTime(10)" class="time-btn px-6 py-3 bg-gray-900 text-gray-300 rounded-xl font-semibold hover:bg-gray-800 transition-all duration-200 active">10 Seconds</button>
+                    <button onclick="setCpsTime(30)" class="time-btn px-6 py-3 bg-gray-900 text-gray-300 rounded-xl font-semibold hover:bg-gray-800 transition-all duration-200">30 Seconds</button>
+                    <button onclick="setCpsTime(60)" class="time-btn px-6 py-3 bg-gray-900 text-gray-300 rounded-xl font-semibold hover:bg-gray-800 transition-all duration-200">60 Seconds</button>
+                </div>
+            </div>
+
+            <!-- Click Area -->
+            <div id="cps-click-area" onclick="cpsClick()" class="relative mb-8 bg-gradient-to-br from-blue-900/30 to-cyan-900/30 border-2 border-blue-500/30 rounded-3xl h-64 flex items-center justify-center cursor-pointer hover:border-blue-500/50 transition-all duration-200">
+                <div id="cps-timer" class="text-6xl font-bold text-blue-400">10</div>
+                <div id="cps-message" class="absolute bottom-6 text-blue-300">Click to Start!</div>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-gradient-to-br from-blue-900/50 to-cyan-900/50 border border-blue-500/30 rounded-xl p-4 text-center">
+                    <div class="text-sm text-gray-400 mb-1">CPS</div>
+                    <div id="cps-score" class="text-3xl font-bold text-blue-400">0.0</div>
+                </div>
+                <div class="bg-gradient-to-br from-cyan-900/50 to-teal-900/50 border border-cyan-500/30 rounded-xl p-4 text-center">
+                    <div class="text-sm text-gray-400 mb-1">Total Clicks</div>
+                    <div id="cps-clicks" class="text-3xl font-bold text-cyan-400">0</div>
+                </div>
+                <div class="bg-gradient-to-br from-teal-900/50 to-emerald-900/50 border border-teal-500/30 rounded-xl p-4 text-center">
+                    <div class="text-sm text-gray-400 mb-1">Time Left</div>
+                    <div id="cps-time-left" class="text-3xl font-bold text-teal-400">10s</div>
+                </div>
+                <div class="bg-gradient-to-br from-purple-900/50 to-pink-900/50 border border-purple-500/30 rounded-xl p-4 text-center">
+                    <div class="text-sm text-gray-400 mb-1">Your Best</div>
+                    <div id="cps-best" class="text-3xl font-bold text-purple-400">0.0</div>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex gap-4">
+                <button onclick="startCpsTest()" id="cps-start-btn" class="flex-1 px-6 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-semibold shadow-lg shadow-blue-500/50 hover:shadow-xl hover:shadow-blue-500/70 transform hover:-translate-y-0.5 transition-all duration-200">
+                    Start Test
+                </button>
+                <button onclick="resetCpsTest()" id="cps-reset-btn" class="hide flex-1 px-6 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-semibold shadow-lg shadow-blue-500/50 hover:shadow-xl hover:shadow-blue-500/70 transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                    </svg>
+                    Reset
+                </button>
+            </div>
+
+            <!-- Results -->
+            <div id="cps-results" class="hide mt-8 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl p-8 text-white shadow-2xl">
+                <h2 class="text-3xl font-bold mb-4">Test Complete! 🎉</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div>
+                        <div class="text-blue-200 text-sm">Clicks Per Second</div>
+                        <div id="result-cps-score" class="text-4xl font-bold">0.0</div>
+                    </div>
+                    <div>
+                        <div class="text-blue-200 text-sm">Total Clicks</div>
+                        <div id="result-total-clicks" class="text-4xl font-bold">0</div>
+                    </div>
+                    <div>
+                        <div class="text-blue-200 text-sm">Best CPS</div>
+                        <div id="result-best-cps" class="text-4xl font-bold">0.0</div>
+                    </div>
+                    <div>
+                        <div class="text-blue-200 text-sm">Time</div>
+                        <div id="result-test-time" class="text-4xl font-bold">10s</div>
+                    </div>
+                </div>
+                <p id="cps-message-text" class="text-blue-100">Keep practicing to improve your score!</p>
+            </div>
+        </div>
+
+        <!-- SEO Content -->
+        <div class="mt-8 bg-gray-800/30 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-6 text-gray-300">
+            <h2 class="text-2xl font-bold text-white mb-4">About CPS Test (Clicks Per Second)</h2>
+            <p class="mb-4">
+                Our CPS test measures how fast you can click your mouse in a given time period. Test your clicking speed with time options ranging from 1 second to 60 seconds.
+            </p>
+            <p>
+                This tool is perfect for gamers, especially Minecraft PvP players, who want to improve their clicking speed. Track your progress and try to beat your personal best!
+            </p>
+        </div>
+    </main>
+
+    <!-- Reaction Test Page -->
+    <main id="reaction-test-page" class="page hide max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <button onclick="showPage('home')" class="mb-6 text-purple-400 hover:text-purple-300 font-semibold flex items-center gap-2">
+            ← Back to Home
+        </button>
+
+        <div class="bg-gray-800/50 backdrop-blur-sm border border-purple-500/20 rounded-3xl shadow-2xl p-8">
+            <h1 class="text-4xl font-bold mb-2 bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">
+                Reaction Time Test
+            </h1>
+            <p class="text-gray-400 mb-8">Measure your reflexes. Click when the screen turns green!</p>
+
+            <!-- Reaction Area -->
+            <div id="reaction-area" onclick="handleReactionClick()" class="relative mb-8 bg-red-900/30 border-2 border-red-500/30 rounded-3xl h-96 flex flex-col items-center justify-center cursor-pointer transition-all duration-500">
+                <div id="reaction-state" class="text-4xl font-bold text-red-400 mb-4">Click to Start</div>
+                <div id="reaction-timer" class="text-6xl font-bold text-red-400">-</div>
+                <div class="absolute bottom-6 text-red-300">Wait for green, then click!</div>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-gradient-to-br from-red-900/50 to-orange-900/50 border border-red-500/30 rounded-xl p-4 text-center">
+                    <div class="text-sm text-gray-400 mb-1">Last Reaction</div>
+                    <div id="reaction-last" class="text-3xl font-bold text-red-400">- ms</div>
+                </div>
+                <div class="bg-gradient-to-br from-orange-900/50 to-yellow-900/50 border border-orange-500/30 rounded-xl p-4 text-center">
+                    <div class="text-sm text-gray-400 mb-1">Average</div>
+                    <div id="reaction-average" class="text-3xl font-bold text-orange-400">- ms</div>
+                </div>
+                <div class="bg-gradient-to-br from-yellow-900/50 to-green-900/50 border border-yellow-500/30 rounded-xl p-4 text-center">
+                    <div class="text-sm text-gray-400 mb-1">Best</div>
+                    <div id="reaction-best" class="text-3xl font-bold text-yellow-400">- ms</div>
+                </div>
+                <div class="bg-gradient-to-br from-green-900/50 to-teal-900/50 border border-green-500/30 rounded-xl p-4 text-center">
+                    <div class="text-sm text-gray-400 mb-1">Attempts</div>
+                    <div id="reaction-attempts" class="text-3xl font-bold text-green-400">0</div>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex gap-4">
+                <button onclick="startReactionTest()" id="reaction-start-btn" class="flex-1 px-6 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white rounded-xl font-semibold shadow-lg shadow-red-500/50 hover:shadow-xl hover:shadow-red-500/70 transform hover:-translate-y-0.5 transition-all duration-200">
+                    Start Test
+                </button>
+                <button onclick="resetReactionTest()" class="flex-1 px-6 py-4 bg-gray-800 text-white rounded-xl font-semibold border-2 border-red-500 hover:bg-gray-700 transform hover:-translate-y-0.5 transition-all duration-200">
+                    Reset
+                </button>
+            </div>
+
+            <!-- Results Table -->
+            <div class="mt-8">
+                <h3 class="text-xl font-bold text-white mb-4">Recent Attempts</h3>
+                <div id="reaction-history" class="bg-gray-900/50 rounded-xl p-4 max-h-48 overflow-y-auto">
+                    <div class="text-gray-400 text-center py-4">No attempts yet. Click Start to begin!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEO Content -->
+        <div class="mt-8 bg-gray-800/30 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-6 text-gray-300">
+            <h2 class="text-2xl font-bold text-white mb-4">Reaction Time Test Online</h2>
+            <p class="mb-4">
+                Test your reaction speed with our free online reaction time test. This tool measures how quickly you can respond to visual stimuli (green screen).
+            </p>
+            <p>
+                Average human reaction time is around 200-250 milliseconds. Professional gamers and athletes can achieve reaction times under 150ms. Track your progress and try to improve your reflexes!
+            </p>
+        </div>
+    </main>
+
+    <!-- Memory Test Page -->
+    <main id="memory-test-page" class="page hide max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <button onclick="showPage('home')" class="mb-6 text-purple-400 hover:text-purple-300 font-semibold flex items-center gap-2">
+            ← Back to Home
+        </button>
+
+        <div class="bg-gray-800/50 backdrop-blur-sm border border-purple-500/20 rounded-3xl shadow-2xl p-8">
+            <h1 class="text-4xl font-bold mb-2 bg-gradient-to-r from-teal-400 to-emerald-400 bg-clip-text text-transparent">
+                Memory Puzzle Game
+            </h1>
+            <p class="text-gray-400 mb-8">Find all matching pairs as fast as you can!</p>
+
+            <!-- Game Controls -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div>
+                    <label class="block text-sm font-semibold mb-2 text-gray-300">Difficulty</label>
+                    <select id="memory-difficulty" onchange="startMemoryGame()" class="w-full px-4 py-2 rounded-lg border-2 border-teal-500/30 bg-gray-900 text-white focus:border-teal-500 focus:outline-none">
+                        <option value="easy">Easy (4x4)</option>
+                        <option value="medium" selected>Medium (4x5)</option>
+                        <option value="hard">Hard (5x6)</option>
+                    </select>
+                </div>
+                <div class="bg-gradient-to-br from-teal-900/50 to-emerald-900/50 border border-teal-500/30 rounded-xl p-4 text-center">
+                    <div class="text-sm text-gray-400 mb-1">Time</div>
+                    <div id="memory-timer" class="text-3xl font-bold text-teal-400">0s</div>
+                </div>
+                <div class="bg-gradient-to-br from-emerald-900/50 to-green-900/50 border border-emerald-500/30 rounded-xl p-4 text-center">
+                    <div class="text-sm text-gray-400 mb-1">Moves</div>
+                    <div id="memory-moves" class="text-3xl font-bold text-emerald-400">0</div>
+                </div>
+                <div class="bg-gradient-to-br from-green-900/50 to-cyan-900/50 border border-green-500/30 rounded-xl p-4 text-center">
+                    <div class="text-sm text-gray-400 mb-1">Pairs Left</div>
+                    <div id="memory-pairs-left" class="text-3xl font-bold text-green-400">10</div>
+                </div>
+            </div>
+
+            <!-- Game Board -->
+            <div id="memory-board" class="grid grid-cols-4 md:grid-cols-5 gap-3 mb-8 min-h-[400px]">
+                <!-- Cards will be generated by JavaScript -->
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex gap-4">
+                <button onclick="startMemoryGame()" class="flex-1 px-6 py-4 bg-gradient-to-r from-teal-600 to-emerald-600 text-white rounded-xl font-semibold shadow-lg shadow-teal-500/50 hover:shadow-xl hover:shadow-teal-500/70 transform hover:-translate-y-0.5 transition-all duration-200">
+                    Start New Game
+                </button>
+                <button onclick="resetMemoryGame()" class="flex-1 px-6 py-4 bg-gray-800 text-white rounded-xl font-semibold border-2 border-teal-500 hover:bg-gray-700 transform hover:-translate-y-0.5 transition-all duration-200">
+                    Reset Game
+                </button>
+            </div>
+
+            <!-- Results -->
+            <div id="memory-results" class="hide mt-8 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-2xl p-8 text-white shadow-2xl">
+                <h2 class="text-3xl font-bold mb-4">Congratulations! 🎉</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div>
+                        <div class="text-teal-200 text-sm">Time Taken</div>
+                        <div id="result-time" class="text-4xl font-bold">0s</div>
+                    </div>
+                    <div>
+                        <div class="text-teal-200 text-sm">Total Moves</div>
+                        <div id="result-moves" class="text-4xl font-bold">0</div>
+                    </div>
+                    <div>
+                        <div class="text-teal-200 text-sm">Accuracy</div>
+                        <div id="result-accuracy-memory" class="text-4xl font-bold">100%</div>
+                    </div>
+                    <div>
+                        <div class="text-teal-200 text-sm">Score</div>
+                        <div id="result-score" class="text-4xl font-bold">1000</div>
+                    </div>
+                </div>
+                <p id="memory-message-text" class="text-teal-100">Great job! Try a harder difficulty next time.</p>
+            </div>
+        </div>
+
+        <!-- SEO Content -->
+        <div class="mt-8 bg-gray-800/30 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-6 text-gray-300">
+            <h2 class="text-2xl font-bold text-white mb-4">Memory Game - Brain Training</h2>
+            <p class="mb-4">
+                Improve your memory and cognitive skills with our free memory puzzle game. Match pairs of cards as quickly as possible with the fewest moves.
+            </p>
+            <p>
+                This game is excellent for brain training, improving concentration, and enhancing visual memory. Perfect for all ages - challenge yourself with different difficulty levels!
+            </p>
+        </div>
+    </main>
+
+    <script>
+        // Page Navigation
+        function showPage(pageId) {
+            console.log('Showing page:', pageId);
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.add('hide');
+                page.classList.remove('show');
+            });
+            
+            // Show selected page
+            let selectedPage;
+            if (pageId === 'password-generator') {
+                selectedPage = document.getElementById('password-page');
+            } else if (pageId === 'typing-test') {
+                selectedPage = document.getElementById('typing-test-page');
+            } else if (pageId === 'cps-test') {
+                selectedPage = document.getElementById('cps-test-page');
+            } else if (pageId === 'reaction-test') {
+                selectedPage = document.getElementById('reaction-test-page');
+            } else if (pageId === 'memory-test') {
+                selectedPage = document.getElementById('memory-test-page');
+            } else {
+                selectedPage = document.getElementById('home-page');
+            }
+            
+            if (selectedPage) {
+                selectedPage.classList.remove('hide');
+                selectedPage.classList.add('show');
+            }
+            
+            // Initialize specific tools when their page loads
+            if (pageId === 'password-generator') {
+                if (!window.passwordInitialized) {
+                    generatePassword();
+                    window.passwordInitialized = true;
+                }
+            } else if (pageId === 'memory-test') {
+                startMemoryGame();
+            }
+        }
+
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>';
+            } else {
+                html.classList.remove('light');
+                html.classList.add('dark');
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
+            }
+        }
+
+        // ==================== PASSWORD GENERATOR ====================
+        const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
+        const numberChars = '0123456789';
+        const symbolChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+        function generatePassword() {
+            const length = parseInt(document.getElementById('password-length').value);
+            const includeUpper = document.getElementById('opt-uppercase').checked;
+            const includeLower = document.getElementById('opt-lowercase').checked;
+            const includeNumbers = document.getElementById('opt-numbers').checked;
+            const includeSymbols = document.getElementById('opt-symbols').checked;
+            
+            document.getElementById('password-length-display').textContent = length;
+            
+            let chars = '';
+            if (includeUpper) chars += uppercaseChars;
+            if (includeLower) chars += lowercaseChars;
+            if (includeNumbers) chars += numberChars;
+            if (includeSymbols) chars += symbolChars;
+            
+            if (chars === '') {
+                document.getElementById('password-display').value = 'Select at least one option';
+                updatePasswordStrength('');
+                return;
+            }
+            
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * chars.length);
+                password += chars[randomIndex];
+            }
+            
+            document.getElementById('password-display').value = password;
+            updatePasswordStrength(password);
+        }
+
+        function updatePasswordStrength(password) {
+            const strengthBar = document.getElementById('strength-bar');
+            const strengthText = document.getElementById('strength-text');
+            const strengthTip = document.getElementById('strength-tip');
+            
+            if (!password || password === 'Select at least one option') {
+                strengthBar.style.width = '0%';
+                strengthText.textContent = 'None';
+                strengthTip.textContent = 'Generate a password first';
+                return;
+            }
+            
+            let score = 0;
+            if (password.length >= 8) score++;
+            if (password.length >= 12) score++;
+            if (password.length >= 16) score++;
+            if (/[A-Z]/.test(password)) score++;
+            if (/[a-z]/.test(password)) score++;
+            if (/[0-9]/.test(password)) score++;
+            if (/[^A-Za-z0-9]/.test(password)) score++;
+            
+            let strength = 'Weak';
+            let width = '25%';
+            let color = '#ef4444';
+            let tip = '❌ Add more characters and character types';
+            
+            if (score >= 6) {
+                strength = 'Very Strong';
+                width = '100%';
+                color = '#10b981';
+                tip = '✅ Excellent! This password is highly secure.';
+            } else if (score >= 4) {
+                strength = 'Strong';
+                width = '75%';
+                color = '#3b82f6';
+                tip = '👍 Good password! Consider adding more symbols.';
+            } else if (score >= 2) {
+                strength = 'Medium';
+                width = '50%';
+                color = '#f59e0b';
+                tip = '⚠️ Medium strength. Add more character types.';
+            }
+            
+            strengthBar.style.width = width;
+            strengthBar.style.backgroundColor = color;
+            strengthText.textContent = strength;
+            strengthText.className = `text-sm font-semibold ${getStrengthColorClass(strength)}`;
+            strengthTip.textContent = tip;
+        }
+
+        function getStrengthColorClass(strength) {
+            switch(strength) {
+                case 'Very Strong': return 'text-emerald-400';
+                case 'Strong': return 'text-blue-400';
+                case 'Medium': return 'text-yellow-400';
+                default: return 'text-red-400';
+            }
+        }
+
+        function copyPassword() {
+            const passwordField = document.getElementById('password-display');
+            const password = passwordField.value;
+            
+            if (!password || password === 'Select at least one option') return;
+            
+            navigator.clipboard.writeText(password).then(() => {
+                const originalText = password;
+                passwordField.value = '✓ Copied to clipboard!';
+                setTimeout(() => {
+                    passwordField.value = originalText;
+                }, 1500);
+            });
+        }
+
+        // ==================== TYPING TEST ====================
+        let typingTestActive = false;
+        let typingStartTime = 0;
+        let typingTimer = null;
+        let typingTimeLeft = 30;
+        let typingErrors = 0;
+        let typingTotalChars = 0;
+        let typingCorrectChars = 0;
+        let currentText = '';
+        let currentCharIndex = 0;
+
+        const typingTexts = {
+            easy: [
+                "The quick brown fox jumps over the lazy dog. The sun rises in the east and sets in the west. Every morning, birds sing and the world wakes up. People go to work, school, and markets. Rainy days are fun and peaceful. I like to watch raindrops falling on the ground. Puddles are fun to jump in. The air smells fresh and cool. People use umbrellas and raincoats. Sometimes I drink hot tea and read a book. Rain makes nature happy and green. Flowers bloom and trees grow tall. Life is full of simple joys.",
+                "Practice makes perfect when learning to type fast. Walking in the park or watching the sky makes us happy. We should enjoy small moments and be grateful. Nature gives us peace and calmness. School is a place to learn and grow. Teachers help us understand new things. Friends make school enjoyable. We read, write, and solve problems every day. Playing in the schoolyard is fun. Learning good habits in school helps us in life.",
+                "Typing speed tests help improve your keyboard skills. My favorite season is summer. The days are long and warm. Children play outside and people go to beaches. Ice cream and cold drinks are delicious. School is a place to learn and grow. Teachers help us understand new things. Friends make school enjoyable. We read, write, and solve problems every day. Playing in the schoolyard is fun. Learning good habits in school helps us in life. Families plan trips to enjoy holidays. Sunlight makes the plants grow and gives energy.",
+                "Keep your fingers on the home row for better typing. I have a pet dog. Its name is Max. He is brown and very friendly. Every morning, I take him for a walk. Max loves to play with a ball. He wags his tail when he sees me. At night, he sleeps beside my bed. Rainy days are fun and peaceful. I like to watch raindrops falling on the ground. Puddles are fun to jump in. The air smells fresh and cool. People use umbrellas and raincoats. Sometimes I drink hot tea and read a book. Rain makes nature happy and green.",
+                "Regular practice will increase your words per minute.School is a place to learn and grow. Teachers help us understand new things. Friends make school enjoyable. We read, write, and solve problems every day. Playing in the schoolyard is fun. Learning good habits in school helps us in life. School is a place to learn and grow. Teachers help us understand new things. Friends make school enjoyable. We read, write, and solve problems every day. Playing in the schoolyard is fun. Learning good habits in school helps us in life."
+            ],
+            medium: [
+                "JavaScript is a versatile programming language used for web development. Policymakers, engineers, and ethicists must collaborate to ensure that AI develops in ways that benefit humanity while minimizing harm. Education and continuous skill development are essential as AI reshapes industries and job markets. Balancing innovation with responsibility ensures that technology complements human intelligence rather than undermining it, paving the way for a future where collaboration between humans and machines thrives.Psychology, neuroscience, and philosophy explore these phenomena, seeking to understand consciousness and the nature of self. Mental health plays a crucial role in overall well-being, with stress, trauma, and neurological disorders affecting daily functioning. Practices such as meditation, therapy, and continuous learning can enhance cognitive resilience and emotional intelligence. The human mind remains one of the most enigmatic and fascinating subjects, revealing limitless potential and profound mysteries that continue to captivate researchers and thinkers worldwide",
+                "Artificial intelligence has transformed the landscape of technology, industry, and society, presenting both opportunities and challenges. Machine learning algorithms analyze massive datasets, identifying patterns and optimizing processes far beyond human capability. Natural language processing enables machines to understand, generate, and respond to human communication, bridging the gap between man and machine. Robotics automates repetitive and hazardous tasks, increasing efficiency and safety in manufacturing and healthcare. However, ethical concerns arise, including bias in decision-making, data privacy, and the potential displacement of jobs.",
+                "Frontend developers create user interfaces with HTML, CSS, and JavaScript.Web accessibility makes websites usable for people with disabilities. Responsive web design ensures websites work on all devices By experiencing the world firsthand, individuals cultivate a deeper understanding of humanity, reinforcing the interconnectedness of cultures, ecosystems, and the shared challenges that bind societies together. School is a place to learn and grow. Teachers help us understand new things. Friends make school enjoyable. We read, write, and solve problems every day. Playing in the schoolyard is fun. Learning good habits in school helps us in life.",
+                "Traveling exposes individuals to new cultures, traditions, and perspectives, broadening the mind and fostering empathy. Every city, village, or remote landscape tells a story of history, values, and human creativity. Culinary experiences, local festivals, and architectural marvels allow travelers to immerse themselves in the essence of a place. Interaction with diverse populations challenges assumptions, encourages adaptability, and nurtures social awareness. Moreover, travel often pushes people out of their comfort zones, promoting resilience and problem-solving skills. Modern transportation, digital tools, and global connectivity have made exploration more accessible than ever.",
+                "The human mind is a labyrinth of thoughts, emotions, and memories, constantly shaping perception and behavior. Cognitive processes such as attention, reasoning, and problem-solving enable individuals to navigate complex environments. Creativity emerges from the interplay of imagination, experience, and neural connectivity, producing art, literature, and scientific breakthroughs. Emotions influence decision-making, often in subtle or unconscious ways, while memory preserves experiences that form personal identity. Psychology, neuroscience, and philosophy explore these phenomena, seeking to understand consciousness and the nature of self. Mental health plays a crucial role in overall well-being, with stress, trauma, and neurological disorders affecting daily functioning. Practices such as meditation, therapy, and continuous learning can enhance cognitive resilience and emotional intelligence. The human mind remains one of the most enigmatic and fascinating subjects, revealing limitless potential and profound mysteries that continue to captivate researchers and thinkers worldwide."
+            ],
+            hard: [
+                "In the heart of the bustling city, where the streets are always alive with the sounds of traffic and chatter, there exists a small, hidden park. Few people know about it, but those who do consider it a sanctuary from the relentless pace of urban life. Towering trees provide a canopy of green, shielding visitors from the harsh sunlight. Birds sing melodiously from the branches, while squirrels scurry along the ground, collecting nuts and playing. The pathways are lined with colorful flowers that change with the seasons, creating a vivid tapestry of nature in the midst of concrete and steel. People often come here to meditate, read, or simply watch the clouds drift lazily across the sky. In this serene environment, the worries of daily life seem to fade away, replaced by a sense of calm and renewal. It is a place where one can pause, reflect, and reconnect with the simpler joys that often go unnoticed.",
+                "Technological advancements have transformed the way humans live, work, and communicate. Every day, innovations in artificial intelligence, robotics, and biotechnology push the boundaries of what is possible. From smartphones that can recognize faces to self-driving cars navigating busy streets, the modern world is a testament to human ingenuity. Yet, alongside these achievements come challenges that must be addressed. Issues such as data privacy, ethical use of AI, and environmental impact require careful consideration. Societies must balance progress with responsibility, ensuring that technological growth benefits everyone while minimizing harm. Education plays a crucial role in this process, equipping individuals with the skills and critical thinking needed to thrive in an increasingly complex world. As the pace of innovation accelerates, adaptability and lifelong learning become essential for success.",
+                "History is a vast tapestry woven with the stories of countless individuals and civilizations. Each era brings with it triumphs, failures, conflicts, and discoveries that shape the course of humanity. From ancient empires that built monumental structures to modern societies that explore the depths of space, the human journey is marked by curiosity and resilience. Cultural exchanges, trade, and migration have allowed knowledge, art, and technology to spread across continents. Yet, history also teaches us the consequences of intolerance, greed, and shortsighted decisions. By studying the past, people can gain insight into human nature and make informed choices for the future. Every artifact, document, and oral tradition holds lessons that, when understood, can inspire innovation, empathy, and a deeper appreciation for the diversity and complexity of life on Earth. Psychology, neuroscience, and philosophy explore these phenomena, seeking to understand consciousness and the nature of self. Mental health plays a crucial role in overall well-being, with stress, trauma, and neurological disorders affecting daily functioning. Practices such as meditation, therapy, and continuous learning can enhance cognitive resilience and emotional intelligence. The human mind remains one of the most enigmatic and fascinating subjects, revealing limitless potential and profound mysteries that continue to captivate researchers and thinkers worldwide",
+                "The universe, in all its vastness, is a place of endless wonder and mystery. Stars are born and die in colossal explosions, black holes bend time and space, and distant galaxies drift silently through the cosmic expanse. Humanity has only scratched the surface of understanding these celestial phenomena, yet the quest for knowledge drives scientists to probe deeper. Telescopes peer into regions billions of light-years away, while space probes traverse the solar system, sending back invaluable data. Each discovery raises new questions, challenging preconceived notions about the nature of reality. Philosophers, astronomers, and physicists alike ponder the origins of the universe, the possibility of other intelligent life, and the ultimate fate of all matter. Despite technological advancements, much remains unknown, reminding us of the delicate balance between curiosity and humility. The cosmos, vast and unyielding, continues to inspire awe, imagination, and a profound sense of connection to something far greater than ourselves..",
+                "Throughout history, civilizations have risen and fallen, leaving behind legacies that shape the modern world. Architectural marvels, intricate art, and philosophical thought serve as reminders of human ingenuity and creativity. Yet, wars, plagues, and economic collapses reveal the fragility of societies and the consequences of mismanagement. Trade routes facilitated cultural exchange, allowing innovations to spread across continents, while migration introduced diverse ideas and perspectives. Language, literature, and oral traditions preserve stories of triumph and tragedy, offering lessons to future generations. Leaders, scholars, and visionaries have influenced the trajectory of nations, sometimes for the better, and at other times for the worse. By studying historical patterns, humans can anticipate potential challenges and make informed decisions. History is not merely a record of the past; it is a living guide that connects generations, shaping values, ethics, and collective memory in profound and enduring ways.",
+                "Climate change is one of the most pressing issues facing the modern world, demanding urgent attention and action. Rising global temperatures have triggered melting glaciers, rising sea levels, and extreme weather events, impacting millions of lives. Deforestation, pollution, and overconsumption exacerbate the situation, threatening biodiversity and destabilizing ecosystems. Governments, scientists, and activists advocate for sustainable practices, renewable energy sources, and responsible consumption patterns. Public awareness campaigns, policy reforms, and technological innovations offer hope, but success requires collaboration on a global scale. Individuals can contribute by reducing waste, conserving energy, and supporting environmentally conscious initiatives. The challenge is not only scientific but ethical, as humanity must reconcile economic development with environmental stewardship. The choices made today will determine the planet's health for generations to come, making responsibility, foresight, and collective effort indispensable for a sustainable future."
+            ]
+        };
+
+        function getTypingText(difficulty) {
+            const texts = typingTexts[difficulty] || typingTexts.medium;
+            return texts[Math.floor(Math.random() * texts.length)];
+        }
+
+        function startTypingTest() {
+            if (typingTestActive) return;
+            
+            const time = parseInt(document.getElementById('typing-time').value);
+            const difficulty = document.getElementById('typing-difficulty').value;
+            
+            typingTimeLeft = time;
+            typingErrors = 0;
+            typingTotalChars = 0;
+            typingCorrectChars = 0;
+            currentCharIndex = 0;
+            typingTestActive = true;
+            
+            document.getElementById('typing-timer').textContent = `${typingTimeLeft}s`;
+            document.getElementById('typing-input').disabled = false;
+            document.getElementById('typing-input').value = '';
+            document.getElementById('typing-input').focus();
+            
+            document.getElementById('typing-start-btn').classList.add('hide');
+            document.getElementById('typing-reset-btn').classList.remove('hide');
+            document.getElementById('typing-results').classList.add('hide');
+            
+            // Generate new text
+            currentText = getTypingText(difficulty);
+            const typingTextElement = document.getElementById('typing-text');
+            typingTextElement.innerHTML = '';
+            
+            currentText.split('').forEach((char, index) => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.id = `char-${index}`;
+                typingTextElement.appendChild(span);
+            });
+            
+            // Highlight first character
+            document.getElementById('char-0').classList.add('current-char');
+            
+            // Start timer
+            typingStartTime = Date.now();
+            typingTimer = setInterval(updateTypingTimer, 1000);
+            
+            // Setup input handler
+            const typingInput = document.getElementById('typing-input');
+            typingInput.oninput = handleTypingInput;
+        }
+
+        function updateTypingTimer() {
+            typingTimeLeft--;
+            document.getElementById('typing-timer').textContent = `${typingTimeLeft}s`;
+            
+            if (typingTimeLeft <= 0) {
+                finishTypingTest();
+            }
+            
+            updateTypingStats();
+        }
+
+        function handleTypingInput(e) {
+            const input = e.target.value;
+            const currentChar = currentText[currentCharIndex];
+            
+            // Clear previous highlighting
+            document.querySelectorAll('#typing-text span').forEach(span => {
+                span.classList.remove('current-char', 'correct-char', 'incorrect-char');
+            });
+            
+            if (input.length > 0) {
+                const userChar = input[input.length - 1];
+                
+                if (userChar === currentChar) {
+                    document.getElementById(`char-${currentCharIndex}`).classList.add('correct-char');
+                    typingCorrectChars++;
+                } else {
+                    document.getElementById(`char-${currentCharIndex}`).classList.add('incorrect-char');
+                    typingErrors++;
+                }
+                
+                typingTotalChars++;
+                currentCharIndex++;
+                
+                // Highlight next character
+                if (currentCharIndex < currentText.length) {
+                    document.getElementById(`char-${currentCharIndex}`).classList.add('current-char');
+                }
+                
+                // Clear input for next character
+                e.target.value = '';
+                
+                // Check if text is complete
+                if (currentCharIndex >= currentText.length) {
+                    finishTypingTest();
+                }
+            }
+            
+            updateTypingStats();
+        }
+
+        function updateTypingStats() {
+            const timeElapsed = (Date.now() - typingStartTime) / 1000;
+            const minutes = timeElapsed / 60;
+            
+            // WPM calculation (words are 5 characters)
+            const wpm = minutes > 0 ? Math.round((typingCorrectChars / 5) / minutes) : 0;
+            const accuracy = typingTotalChars > 0 ? Math.round((typingCorrectChars / typingTotalChars) * 100) : 100;
+            const cps = timeElapsed > 0 ? (typingTotalChars / timeElapsed).toFixed(1) : 0;
+            
+            document.getElementById('typing-wpm').textContent = wpm;
+            document.getElementById('typing-accuracy').textContent = `${accuracy}%`;
+            document.getElementById('typing-cps').textContent = cps;
+            document.getElementById('typing-errors').textContent = typingErrors;
+        }
+
+        function finishTypingTest() {
+            typingTestActive = false;
+            if (typingTimer) {
+                clearInterval(typingTimer);
+            }
+            
+            document.getElementById('typing-input').disabled = true;
+            
+            updateTypingStats();
+            
+            // Show results
+            const wpm = parseInt(document.getElementById('typing-wpm').textContent);
+            const accuracy = document.getElementById('typing-accuracy').textContent;
+            const cps = document.getElementById('typing-cps').textContent;
+            
+            document.getElementById('result-wpm').textContent = wpm;
+            document.getElementById('result-accuracy').textContent = accuracy;
+            document.getElementById('result-cps').textContent = cps;
+            document.getElementById('result-chars').textContent = typingTotalChars;
+            
+            let message = '';
+            if (wpm >= 60) message = '🚀 Professional typist level!';
+            else if (wpm >= 40) message = '👍 Above average typing speed!';
+            else if (wpm >= 30) message = '👌 Average typing speed.';
+            else message = '💪 Keep practicing to improve!';
+            
+            document.getElementById('result-message').textContent = message;
+            document.getElementById('typing-results').classList.remove('hide');
+        }
+
+        function resetTypingTest() {
+            typingTestActive = false;
+            if (typingTimer) {
+                clearInterval(typingTimer);
+            }
+            
+            typingTimeLeft = parseInt(document.getElementById('typing-time').value);
+            document.getElementById('typing-timer').textContent = `${typingTimeLeft}s`;
+            
+            document.getElementById('typing-wpm').textContent = '0';
+            document.getElementById('typing-accuracy').textContent = '100%';
+            document.getElementById('typing-cps').textContent = '0.0';
+            document.getElementById('typing-errors').textContent = '0';
+            
+            document.getElementById('typing-input').disabled = true;
+            document.getElementById('typing-input').value = '';
+            document.getElementById('typing-text').innerHTML = '';
+            
+            document.getElementById('typing-start-btn').classList.remove('hide');
+            document.getElementById('typing-reset-btn').classList.add('hide');
+            document.getElementById('typing-results').classList.add('hide');
+        }
+
+        // ==================== CPS TEST ====================
+       let cpsTestActive = false;
+let cpsTimeLimit = 10;
+let cpsStartTime = 0;
+let cpsClickCount = 0;
+let cpsTimer = null;
+let cpsBestScore = parseFloat(localStorage.getItem('cpsBestScore') || '0');
+
+function setCpsTime(seconds) {
+    cpsTimeLimit = seconds;
+    document.querySelectorAll('.time-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    document.getElementById('cps-timer').textContent = seconds;
+    document.getElementById('cps-time-left').textContent = `${seconds}s`;
+    
+    if (!cpsTestActive) {
+        resetCpsTest();
+    }
+}
+
+function startCpsTest() {
+    if (cpsTestActive) return;
+    
+    cpsTestActive = true;
+    cpsClickCount = 0;
+    cpsStartTime = Date.now();
+    
+    document.getElementById('cps-start-btn').classList.add('hide');
+    document.getElementById('cps-reset-btn').classList.remove('hide');
+    document.getElementById('cps-results').classList.add('hide');
+    document.getElementById('cps-message').textContent = 'Click as fast as you can!';
+    
+    let timeLeft = cpsTimeLimit;
+    cpsTimer = setInterval(() => {
+        timeLeft--;
+        document.getElementById('cps-timer').textContent = timeLeft;
+        document.getElementById('cps-time-left').textContent = `${timeLeft}s`;
+        
+        if (timeLeft <= 0) {
+            finishCpsTest();
+        }
+        
+        updateCpsStats();
+    }, 1000);
+}
+
+function cpsClick() {
+    if (!cpsTestActive) return; // <-- Yahan startCpsTest() hata diya
+    cpsClickCount++;
+    updateCpsStats();
+}
+
+function updateCpsStats() {
+    const timeElapsed = (Date.now() - cpsStartTime) / 1000;
+    const cps = timeElapsed > 0 ? (cpsClickCount / timeElapsed).toFixed(1) : 0;
+    
+    document.getElementById('cps-score').textContent = cps;
+    document.getElementById('cps-clicks').textContent = cpsClickCount;
+    document.getElementById('cps-best').textContent = cpsBestScore.toFixed(1);
+}
+
+function finishCpsTest() {
+    cpsTestActive = false;
+    if (cpsTimer) {
+        clearInterval(cpsTimer);
+    }
+    
+    const timeElapsed = cpsTimeLimit;
+    const cps = (cpsClickCount / timeElapsed).toFixed(1);
+    
+    if (parseFloat(cps) > cpsBestScore) {
+        cpsBestScore = parseFloat(cps);
+        localStorage.setItem('cpsBestScore', cpsBestScore.toString());
+    }
+    
+    document.getElementById('result-cps-score').textContent = cps;
+    document.getElementById('result-total-clicks').textContent = cpsClickCount;
+    document.getElementById('result-best-cps').textContent = cpsBestScore.toFixed(1);
+    document.getElementById('result-test-time').textContent = `${cpsTimeLimit}s`;
+    
+    let message = '';
+    if (parseFloat(cps) >= 10) message = '🔥 Legendary clicking speed!';
+    else if (parseFloat(cps) >= 8) message = '🚀 Professional gamer level!';
+    else if (parseFloat(cps) >= 6) message = '👍 Above average clicking speed!';
+    else if (parseFloat(cps) >= 4) message = '👌 Average clicking speed.';
+    else message = '💪 Keep practicing to improve!';
+    
+    document.getElementById('cps-message-text').textContent = message;
+    document.getElementById('cps-results').classList.remove('hide');
+}
+
+function resetCpsTest() {
+    cpsTestActive = false;
+    if (cpsTimer) {
+        clearInterval(cpsTimer);
+    }
+    
+    document.getElementById('cps-timer').textContent = cpsTimeLimit;
+    document.getElementById('cps-score').textContent = '0.0';
+    document.getElementById('cps-clicks').textContent = '0';
+    document.getElementById('cps-time-left').textContent = `${cpsTimeLimit}s`;
+    document.getElementById('cps-message').textContent = 'Click to Start!';
+    
+    document.getElementById('cps-start-btn').classList.remove('hide');
+    document.getElementById('cps-reset-btn').classList.add('hide');
+    document.getElementById('cps-results').classList.add('hide');
+}
+
+        // ==================== REACTION TEST ====================
+        let reactionTestActive = false;
+        let reactionStartTime = 0;
+        let reactionTimeout = null;
+        let reactionHistory = [];
+        let reactionAttempts = 0;
+
+        function startReactionTest() {
+            if (reactionTestActive) return;
+            
+            reactionTestActive = true;
+            document.getElementById('reaction-start-btn').disabled = true;
+            document.getElementById('reaction-state').textContent = 'Get ready...';
+            document.getElementById('reaction-state').className = 'text-4xl font-bold text-yellow-400 mb-4';
+            
+            const reactionArea = document.getElementById('reaction-area');
+            reactionArea.style.backgroundColor = 'rgba(251, 191, 36, 0.3)';
+            reactionArea.style.borderColor = 'rgba(251, 191, 36, 0.5)';
+            document.getElementById('reaction-timer').textContent = '...';
+            document.getElementById('reaction-timer').className = 'text-6xl font-bold text-yellow-400';
+            
+            // Random delay between 1-5 seconds
+            const delay = Math.random() * 4000 + 1000;
+            
+            reactionTimeout = setTimeout(() => {
+                reactionStartTime = Date.now();
+                document.getElementById('reaction-state').textContent = 'Click NOW!';
+                document.getElementById('reaction-state').className = 'text-4xl font-bold text-green-400 mb-4';
+                reactionArea.style.backgroundColor = 'rgba(34, 197, 94, 0.3)';
+                reactionArea.style.borderColor = 'rgba(34, 197, 94, 0.5)';
+                document.getElementById('reaction-timer').className = 'text-6xl font-bold text-green-400';
+            }, delay);
+        }
+
+        function handleReactionClick() {
+            if (!reactionTestActive) {
+                startReactionTest();
+                return;
+            }
+            
+            if (reactionStartTime === 0) {
+                // Clicked too early
+                clearTimeout(reactionTimeout);
+                document.getElementById('reaction-state').textContent = 'Too early!';
+                document.getElementById('reaction-state').className = 'text-4xl font-bold text-red-400 mb-4';
+                document.getElementById('reaction-timer').textContent = '0';
+                document.getElementById('reaction-timer').className = 'text-6xl font-bold text-red-400';
+                
+                setTimeout(() => {
+                    resetReactionTestUI();
+                }, 1000);
+                return;
+            }
+            
+            const reactionTime = Date.now() - reactionStartTime;
+            reactionHistory.push(reactionTime);
+            reactionAttempts++;
+            
+            // Update display
+            document.getElementById('reaction-last').textContent = `${reactionTime} ms`;
+            document.getElementById('reaction-attempts').textContent = reactionAttempts;
+            
+            // Calculate average
+            const average = reactionHistory.reduce((a, b) => a + b, 0) / reactionHistory.length;
+            document.getElementById('reaction-average').textContent = `${Math.round(average)} ms`;
+            
+            // Calculate best
+            const best = Math.min(...reactionHistory);
+            document.getElementById('reaction-best').textContent = `${best} ms`;
+            
+            // Update history
+            updateReactionHistory();
+            
+            // Show result for 1 second, then reset
+            document.getElementById('reaction-state').textContent = `${reactionTime} ms`;
+            document.getElementById('reaction-timer').textContent = '';
+            
+            setTimeout(() => {
+                resetReactionTestUI();
+            }, 1000);
+        }
+
+        function resetReactionTestUI() {
+            reactionTestActive = false;
+            reactionStartTime = 0;
+            document.getElementById('reaction-start-btn').disabled = false;
+            document.getElementById('reaction-state').textContent = 'Click to Start';
+            document.getElementById('reaction-state').className = 'text-4xl font-bold text-red-400 mb-4';
+            
+            const reactionArea = document.getElementById('reaction-area');
+            reactionArea.style.backgroundColor = 'rgba(239, 68, 68, 0.3)';
+            reactionArea.style.borderColor = 'rgba(239, 68, 68, 0.5)';
+            document.getElementById('reaction-timer').textContent = '-';
+            document.getElementById('reaction-timer').className = 'text-6xl font-bold text-red-400';
+        }
+
+        function resetReactionTest() {
+            reactionHistory = [];
+            reactionAttempts = 0;
+            document.getElementById('reaction-last').textContent = '- ms';
+            document.getElementById('reaction-average').textContent = '- ms';
+            document.getElementById('reaction-best').textContent = '- ms';
+            document.getElementById('reaction-attempts').textContent = '0';
+            document.getElementById('reaction-history').innerHTML = '<div class="text-gray-400 text-center py-4">No attempts yet. Click Start to begin!</div>';
+            resetReactionTestUI();
+        }
+
+        function updateReactionHistory() {
+            const historyContainer = document.getElementById('reaction-history');
+            historyContainer.innerHTML = '';
+            
+            // Show last 5 attempts
+            const recentAttempts = reactionHistory.slice(-5).reverse();
+            
+            if (recentAttempts.length === 0) {
+                historyContainer.innerHTML = '<div class="text-gray-400 text-center py-4">No attempts yet. Click Start to begin!</div>';
+                return;
+            }
+            
+            recentAttempts.forEach((time, index) => {
+                const attemptNumber = reactionHistory.length - index;
+                const div = document.createElement('div');
+                div.className = 'flex justify-between items-center p-3 border-b border-gray-700 last:border-b-0';
+                
+                const attemptDiv = document.createElement('div');
+                attemptDiv.className = 'text-gray-300';
+                attemptDiv.textContent = `Attempt ${attemptNumber}`;
+                
+                const timeDiv = document.createElement('div');
+                timeDiv.className = 'font-bold';
+                timeDiv.textContent = `${time} ms`;
+                
+                if (time < 200) timeDiv.className += ' text-green-400';
+                else if (time < 300) timeDiv.className += ' text-yellow-400';
+                else timeDiv.className += ' text-red-400';
+                
+                div.appendChild(attemptDiv);
+                div.appendChild(timeDiv);
+                historyContainer.appendChild(div);
+            });
+        }
+
+        // ==================== MEMORY GAME ====================
+        let memoryGameActive = false;
+        let memoryTimer = null;
+        let memoryTime = 0;
+        let memoryMoves = 0;
+        let memoryCards = [];
+        let memoryFlippedCards = [];
+        let memoryMatches = 0;
+        let memoryTotalPairs = 0;
+
+        const memoryIcons = ['🌟', '🚀', '🎯', '💎', '⚡', '🎨', '🧠', '💡', '🎮', '📱', '💻', '🎵', '🎭', '🏆', '✨', '🔥'];
+
+        function startMemoryGame() {
+            memoryGameActive = true;
+            memoryTime = 0;
+            memoryMoves = 0;
+            memoryFlippedCards = [];
+            memoryMatches = 0;
+            
+            const difficulty = document.getElementById('memory-difficulty').value;
+            let cols;
+            
+            switch(difficulty) {
+                case 'easy':
+                    memoryTotalPairs = 8;
+                    cols = 4;
+                    break;
+                case 'hard':
+                    memoryTotalPairs = 15;
+                    cols = 6;
+                    break;
+                default: // medium
+                    memoryTotalPairs = 10;
+                    cols = 5;
+            }
+            
+            memoryCards = createMemoryCards(memoryTotalPairs * 2);
+            
+            // Create board
+            const board = document.getElementById('memory-board');
+            board.innerHTML = '';
+            
+            // Set grid columns based on difficulty
+            board.className = `grid grid-cols-4 md:grid-cols-${cols} gap-3 mb-8 min-h-[400px]`;
+            
+            memoryCards.forEach((card, index) => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'memory-card aspect-square bg-gradient-to-br from-teal-900 to-emerald-900 rounded-xl flex items-center justify-center text-3xl cursor-pointer transform transition-all duration-300';
+                cardElement.dataset.index = index;
+                cardElement.dataset.value = card.value;
+                cardElement.dataset.matched = 'false';
+                cardElement.innerHTML = '<div class="text-3xl">?</div>';
+                cardElement.onclick = () => flipMemoryCard(index);
+                board.appendChild(cardElement);
+            });
+            
+            // Update UI
+            document.getElementById('memory-timer').textContent = '0s';
+            document.getElementById('memory-moves').textContent = '0';
+            document.getElementById('memory-pairs-left').textContent = memoryTotalPairs;
+            document.getElementById('memory-results').classList.add('hide');
+            
+            // Start timer
+            if (memoryTimer) clearInterval(memoryTimer);
+            memoryTimer = setInterval(() => {
+                memoryTime++;
+                document.getElementById('memory-timer').textContent = `${memoryTime}s`;
+            }, 1000);
+        }
+
+        function createMemoryCards(totalCards) {
+            const pairs = totalCards / 2;
+            const icons = memoryIcons.slice(0, pairs);
+            const cards = [];
+            
+            // Create pairs
+            icons.forEach(icon => {
+                cards.push({ value: icon, matched: false });
+                cards.push({ value: icon, matched: false });
+            });
+            
+            // Shuffle
+            for (let i = cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cards[i], cards[j]] = [cards[j], cards[i]];
+            }
+            
+            return cards;
+        }
+
+        function flipMemoryCard(index) {
+            if (!memoryGameActive || memoryFlippedCards.length >= 2) return;
+            
+            const cardElement = document.querySelector(`#memory-board div[data-index="${index}"]`);
+            if (!cardElement || cardElement.dataset.matched === 'true' || memoryFlippedCards.includes(index)) return;
+            
+            // Flip card
+            cardElement.innerHTML = `<div class="text-3xl">${memoryCards[index].value}</div>`;
+            cardElement.classList.remove('bg-gradient-to-br', 'from-teal-900', 'to-emerald-900');
+            cardElement.classList.add('bg-gradient-to-br', 'from-teal-600', 'to-emerald-600');
+            memoryFlippedCards.push(index);
+            
+            if (memoryFlippedCards.length === 2) {
+                memoryMoves++;
+                document.getElementById('memory-moves').textContent = memoryMoves;
+                
+                const [index1, index2] = memoryFlippedCards;
+                const card1 = memoryCards[index1];
+                const card2 = memoryCards[index2];
+                
+                if (card1.value === card2.value) {
+                    // Match found
+                    setTimeout(() => {
+                        document.querySelectorAll(`#memory-board div[data-index="${index1}"], #memory-board div[data-index="${index2}"]`).forEach(cardEl => {
+                            cardEl.dataset.matched = 'true';
+                            cardEl.classList.remove('bg-gradient-to-br', 'from-teal-600', 'to-emerald-600');
+                            cardEl.classList.add('bg-gradient-to-br', 'from-emerald-600', 'to-green-600', 'matched');
+                            cardEl.style.cursor = 'default';
+                        });
+                        
+                        memoryFlippedCards = [];
+                        memoryMatches++;
+                        document.getElementById('memory-pairs-left').textContent = memoryTotalPairs - memoryMatches;
+                        
+                        // Check if game is complete
+                        if (memoryMatches === memoryTotalPairs) {
+                            finishMemoryGame();
+                        }
+                    }, 500);
+                } else {
+                    // No match
+                    setTimeout(() => {
+                        document.querySelectorAll(`#memory-board div[data-index="${index1}"], #memory-board div[data-index="${index2}"]`).forEach(cardEl => {
+                            cardEl.innerHTML = '<div class="text-3xl">?</div>';
+                            cardEl.classList.remove('bg-gradient-to-br', 'from-teal-600', 'to-emerald-600');
+                            cardEl.classList.add('bg-gradient-to-br', 'from-teal-900', 'to-emerald-900');
+                        });
+                        memoryFlippedCards = [];
+                    }, 1000);
+                }
+            }
+        }
+
+        function finishMemoryGame() {
+            memoryGameActive = false;
+            if (memoryTimer) {
+                clearInterval(memoryTimer);
+            }
+            
+            const accuracy = Math.round((memoryTotalPairs / memoryMoves) * 100);
+            const score = Math.round((10000 * memoryTotalPairs) / (memoryTime * memoryMoves));
+            
+            document.getElementById('result-time').textContent = `${memoryTime}s`;
+            document.getElementById('result-moves').textContent = memoryMoves;
+            document.getElementById('result-accuracy-memory').textContent = `${accuracy}%`;
+            document.getElementById('result-score').textContent = score;
+            
+            let message = '';
+            if (score > 1000) message = '🎯 Memory Master! Perfect game!';
+            else if (score > 500) message = '🚀 Excellent memory skills!';
+            else if (score > 250) message = '👍 Good job! Try to use fewer moves next time.';
+            else message = '💪 Keep practicing to improve your memory!';
+            
+            document.getElementById('memory-message-text').textContent = message;
+            document.getElementById('memory-results').classList.remove('hide');
+        }
+
+        function resetMemoryGame() {
+            memoryGameActive = false;
+            if (memoryTimer) {
+                clearInterval(memoryTimer);
+            }
+            startMemoryGame();
+        }
+
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Document loaded, initializing tools...');
+            
+            // Initialize password generator
+            generatePassword();
+            window.passwordInitialized = true;
+            
+            // Initialize CPS best score
+            document.getElementById('cps-best').textContent = cpsBestScore.toFixed(1);
+            
+            // Set active time button for CPS test
+            const timeButtons = document.querySelectorAll('.time-btn');
+            if (timeButtons.length >= 3) {
+                timeButtons[2].classList.add('active');
+            }
+            
+            // Initialize memory game
+            startMemoryGame();
+            
+            console.log('All tools initialized successfully!');
+        });
+    </script>
+</body>
+</html>
